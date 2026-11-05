@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carts>
+  <cart id="HD001" created="2026-10-01" employee_id="E01" customer_id="C01" status="Completed" payment_method="COD" shipping_address="12 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM">
+    <item product_id="1" sku="1-RED-L" color="Red" size="L" quantity="1" price="109.95"/>
+    <item product_id="18" sku="18-WHITE-L" color="White" size="L" quantity="2" price="9.85"/>
+  </cart>
+  <cart id="HD002" created="2026-10-05" employee_id="E02" customer_id="C02" status="Completed" payment_method="Bank transfer" shipping_address="45 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM">
+    <item product_id="5" sku="5-SILVER-FREE" color="Silver" size="Free" quantity="1" price="695"/>
+  </cart>
+  <cart id="HD003" created="2026-10-12" employee_id="E02" customer_id="C03" status="Completed" payment_method="E-wallet" shipping_address="669 Quốc lộ 1A, Phường Linh Xuân, TP. Thủ Đức, TP.HCM">
+    <item product_id="9" sku="9-BLACK-FREE" color="Black" size="Free" quantity="1" price="64"/>
+    <item product_id="11" sku="11-SILVER-FREE" color="Silver" size="Free" quantity="2" price="109"/>
+    <item product_id="2" sku="2-WHITE-XL" color="White" size="XL" quantity="1" price="22.3"/>
+  </cart>
+  <cart id="HD004" created="2026-10-18" employee_id="E03" customer_id="C04" status="Cancelled" payment_method="COD" shipping_address="102 Cách Mạng Tháng 8, Phường 7, Quận 3, TP.HCM">
+    <item product_id="14" sku="14-BLACK-FREE" color="Black" size="Free" quantity="1" price="999.99"/>
+  </cart>
+  <cart id="HD005" created="2026-10-25" employee_id="E01" customer_id="C05" status="Shipping" payment_method="E-wallet" shipping_address="18 Hoàng Văn Thụ, Phường 9, Quận Phú Nhuận, TP.HCM">
+    <item product_id="15" sku="15-BLUE-L" color="Blue" size="L" quantity="1" price="56.99"/>
+    <item product_id="7" sku="7-GREEN-FREE" color="Green" size="Free" quantity="2" price="9.99"/>
+  </cart>
+  <cart id="HD006" created="2026-11-01" employee_id="E03" customer_id="C01" status="Pending" payment_method="Bank transfer" shipping_address="12 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM">
+    <item product_id="17" sku="17-BLACK-XL" color="Black" size="XL" quantity="1" price="39.99"/>
+    <item product_id="20" sku="20-BLUE-L" color="Blue" size="L" quantity="3" price="12.99"/>
+  </cart>
+  <cart id="HD007" created="2026-11-04" employee_id="E02" customer_id="C02" status="Pending" payment_method="COD" shipping_address="220 Pasteur, Phường Võ Thị Sáu, Quận 3, TP.HCM">
+    <item product_id="13" sku="13-GOLD-FREE" color="Gold" size="Free" quantity="1" price="599"/>
+    <item product_id="12" sku="12-WHITE-FREE" color="White" size="Free" quantity="1" price="114"/>
+  </cart>
+</carts>

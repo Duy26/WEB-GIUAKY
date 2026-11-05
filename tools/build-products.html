@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ tạo products.xml - MU Shop BW08</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 16px; color: #222; }
+        button { padding: 8px 16px; margin-right: 8px; cursor: pointer; }
+        textarea { width: 100%; height: 450px; margin-top: 12px; font-family: Consolas, monospace; font-size: 13px; box-sizing: border-box; }
+        #message { margin-top: 10px; }
+        footer { margin-top: 20px; padding-top: 10px; border-top: 1px solid #ccc; text-align: center; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Công cụ tạo products.xml</h1>
+    <p>Đọc dữ liệu từ https://fakestoreapi.com/products, bổ sung variants (màu, size, tồn kho) và xuất ra file XML.</p>
+
+    <button id="btnBuild">Tạo products.xml</button>
+    <button id="btnDownload" disabled>Tải products.xml</button>
+    <p id="message"></p>
+    <textarea id="xmlResult" readonly placeholder="Kết quả XML sẽ hiện ở đây"></textarea>
+
+    <footer>
+        <p>Lê Thanh Bảo Duy - K244161775</p>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script>
+        // Câu 1: danh sách màu và size dùng để tạo variant
+        var COLORS = ["Black", "White", "Red", "Blue", "Green", "Gold", "Silver"];
+        var CLOTHING_SIZES = ["S", "M", "L", "XL"];
+        var API_URL = "https://fakestoreapi.com/products";
+        var xmlString = ""; // chuỗi XML sau khi tạo, dùng cho nút Tải
+
+        // Trả về số nguyên ngẫu nhiên từ min đến max (tính cả min và max)
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Kiểm tra danh mục có phải quần áo không (quần áo mới có size S/M/L/XL)
+        function isClothing(category) {
+            return category === "men's clothing" || category === "women's clothing";
+        }
+
+        // Thêm xuống dòng + khoảng trắng vào thẻ cha để file XML dễ đọc
+        function addNewLine(doc, parent, spaces) {
+            parent.appendChild(doc.createTextNode("\n" + spaces));
+        }
+
+        // Tạo thẻ con có nội dung chữ (vd <title>...</title>) và gắn vào thẻ cha
+        function addTextElement(doc, parent, tagName, text) {
+            addNewLine(doc, parent, "    ");
+            var element = doc.createElement(tagName);
+            element.appendChild(doc.createTextNode(text));
+            parent.appendChild(element);
+        }
+
+        // Câu 1: tạo thẻ <variants> cho 1 sản phẩm: 2-4 variant, không trùng sku, ít nhất 1 variant còn hàng
+        function createVariants(doc, product) {
+            var variantsEl = doc.createElement("variants");
+            var sizes = isClothing(product.category) ? CLOTHING_SIZES : ["Free"];
+            var total = randomInt(2, 4);   // số variant của sản phẩm này
+            var usedSku = [];              // các sku đã tạo, để tránh trùng
+            var hasStock = false;          // đã có variant nào còn hàng chưa
+            var lastVariant = null;
+
+            while (usedSku.length < total) {
+                var color = COLORS[randomInt(0, COLORS.length - 1)];
+                var size = sizes[randomInt(0, sizes.length - 1)];
+                var sku = product.id + "-" + color.toUpperCase() + "-" + size.toUpperCase();
+
+                // Nếu sku đã có (trùng màu + size) thì bỏ qua, chọn lại
+                if (usedSku.indexOf(sku) === -1) {
+                    usedSku.push(sku);
+                    var stock = randomInt(0, 30);
+                    if (stock > 0) {
+                        hasStock = true;
+                    }
+
+                    var variant = doc.createElement("variant");
+                    variant.setAttribute("sku", sku);
+                    variant.setAttribute("color", color);
+                    variant.setAttribute("size", size);
+                    variant.setAttribute("stock", stock);
+
+                    addNewLine(doc, variantsEl, "      ");
+                    variantsEl.appendChild(variant);
+                    lastVariant = variant;
+                }
+            }
+
+            // Nếu tất cả variant đều hết hàng thì cho variant cuối có hàng lại
+            if (hasStock === false) {
+                lastVariant.setAttribute("stock", randomInt(1, 30));
+            }
+
+            addNewLine(doc, variantsEl, "    ");
+            return variantsEl;
+        }
+
+        // Câu 1: dùng mô hình DOM tạo tài liệu XML <products> từ mảng sản phẩm JSON
+        function buildXML(products) {
+            var doc = document.implementation.createDocument("", "products", null);
+            var root = doc.documentElement; // thẻ <products>
+
+            for (var i = 0; i < products.length; i++) {
+                var p = products[i];
+                var productEl = doc.createElement("product");
+                productEl.setAttribute("id", p.id);
+
+                addTextElement(doc, productEl, "title", p.title);
+                addTextElement(doc, productEl, "price", p.price);
+                addTextElement(doc, productEl, "category", p.category);
+                addTextElement(doc, productEl, "description", p.description);
+                addTextElement(doc, productEl, "image", p.image);
+
+                // <rating rate=".." count=".."/>
+                addNewLine(doc, productEl, "    ");
+                var ratingEl = doc.createElement("rating");
+                ratingEl.setAttribute("rate", p.rating.rate);
+                ratingEl.setAttribute("count", p.rating.count);
+                productEl.appendChild(ratingEl);
+
+                // <variants> bổ sung thêm
+                addNewLine(doc, productEl, "    ");
+                productEl.appendChild(createVariants(doc, p));
+
+                addNewLine(doc, productEl, "  ");
+                addNewLine(doc, root, "  ");
+                root.appendChild(productEl);
+            }
+            addNewLine(doc, root, "");
+            return doc;
+        }
+
+        // Xử lý nút "Tạo products.xml": đọc API bằng XMLHttpRequest (hàm loadJSON) rồi tạo XML
+        function onBuildClick() {
+            var message = document.getElementById("message");
+            message.textContent = "Đang tải dữ liệu từ " + API_URL + " ...";
+
+            loadJSON(API_URL, function (products) {
+                if (products === null) {
+                    message.textContent = "Lỗi: không đọc được dữ liệu từ API.";
+                    return;
+                }
+                var doc = buildXML(products);
+                // XMLSerializer chuyển tài liệu XML thành chuỗi, thêm dòng khai báo ở đầu
+                xmlString = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(doc);
+
+                document.getElementById("xmlResult").value = xmlString;
+                document.getElementById("btnDownload").disabled = false;
+                message.textContent = "Đã tạo XML cho " + products.length + " sản phẩm.";
+            });
+        }
+
+        // Xử lý nút "Tải products.xml": tạo Blob từ chuỗi XML và tải về bằng thẻ <a download>
+        function onDownloadClick() {
+            var blob = new Blob([xmlString], { type: "application/xml" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = "products.xml";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById("btnBuild").addEventListener("click", onBuildClick);
+        document.getElementById("btnDownload").addEventListener("click", onDownloadClick);
+    </script>
+</body>
+</html>

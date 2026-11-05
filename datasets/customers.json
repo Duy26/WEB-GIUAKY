@@ -1,0 +1,47 @@
+[
+    {
+        "id": "C01",
+        "username": "nguyenvanan",
+        "password": "123456",
+        "fullname": "Nguyễn Văn An",
+        "phone": "0901234567",
+        "email": "an.nguyen@gmail.com",
+        "address": "12 Lê Lợi, Phường Bến Nghé, Quận 1, TP.HCM"
+    },
+    {
+        "id": "C02",
+        "username": "tranthibinh",
+        "password": "123456",
+        "fullname": "Trần Thị Bình",
+        "phone": "0912345678",
+        "email": "binh.tran@gmail.com",
+        "address": "45 Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM"
+    },
+    {
+        "id": "C03",
+        "username": "lehoangcuong",
+        "password": "123456",
+        "fullname": "Lê Hoàng Cường",
+        "phone": "0987654321",
+        "email": "cuong.le@gmail.com",
+        "address": "78 Võ Văn Ngân, Phường Linh Chiểu, TP. Thủ Đức, TP.HCM"
+    },
+    {
+        "id": "C04",
+        "username": "phamminhduc",
+        "password": "123456",
+        "fullname": "Phạm Minh Đức",
+        "phone": "0938111222",
+        "email": "duc.pham@gmail.com",
+        "address": "102 Cách Mạng Tháng 8, Phường 7, Quận 3, TP.HCM"
+    },
+    {
+        "id": "C05",
+        "username": "vothingoc",
+        "password": "123456",
+        "fullname": "Võ Thị Ngọc",
+        "phone": "0977333444",
+        "email": "ngoc.vo@gmail.com",
+        "address": "25 Phan Xích Long, Phường 2, Quận Phú Nhuận, TP.HCM"
+    }
+]

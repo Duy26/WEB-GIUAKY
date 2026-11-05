@@ -1,0 +1,865 @@
+/* main.css - css trang bán hàng (grid, responsive, skeleton, mini-cart, form) */
+
+/* ===== Bảng màu thương hiệu MU Shop: đỏ - vàng - đen ===== */
+:root {
+    --red: #C8102E;
+    --red-dark: #9E0B23;
+    --yellow: #FFD200;
+    --black: #111111;
+    --black-soft: #1E1E1E;
+    --white: #FFFFFF;
+    --gray-light: #F5F5F5;
+    /* màu phụ (chữ phụ, viền, nền nhạt, trạng thái đúng) */
+    --gray: #666666;
+    --border: #DDDDDD;
+    --yellow-light: #FFF6CC;
+    --success: #2E7D32;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: var(--black);
+    background: var(--gray-light);
+    accent-color: var(--red); /* thanh trượt rating, checkbox... dùng màu đỏ */
+}
+
+/* viền khi dùng phím Tab để chọn phần tử */
+:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+}
+
+/* ===== Câu 2: header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: 4px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+/* logo chỉ là chữ: "MU" đỏ, "Shop" vàng */
+.logo-mu {
+    color: var(--red);
+}
+
+.logo-shop {
+    color: var(--yellow);
+}
+
+/* nhóm nút bên phải header: Đăng nhập + Giỏ hàng nằm ngang hàng */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* nút Đăng nhập: viền trắng nền trong suốt trên header đen, rê chuột thành vàng */
+.login-link {
+    padding: 7px 14px;
+    border: 1px solid var(--white);
+    border-radius: 6px;
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.cart-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: var(--red);
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cart-button:hover {
+    background: var(--red-dark);
+}
+
+/* số lượng trên nút giỏ: nền vàng chữ đen */
+.cart-count {
+    display: inline-block;
+    min-width: 22px;
+    padding: 2px 6px;
+    border-radius: 11px;
+    background: var(--yellow);
+    color: var(--black);
+    text-align: center;
+}
+
+/* ===== Câu 6: mini-cart ===== */
+
+/* khối bọc nút giỏ: là mốc (relative) để mini-cart định vị absolute ngay bên dưới */
+.cart-wrapper {
+    position: relative;
+}
+
+.mini-cart {
+    display: none;            /* mặc định ẩn, thêm class open thì hiện */
+    position: absolute;
+    top: calc(100% + 8px);    /* ngay dưới nút giỏ hàng */
+    right: 0;
+    z-index: 1000;            /* nằm đè lên mọi nội dung khác */
+    width: 600px;
+    max-width: calc(100vw - 32px);
+    padding: 14px;
+    border: 1px solid var(--black);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--black);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+.mini-cart.open {
+    display: block;
+}
+
+/* thanh tiêu đề mini-cart: nền đen chữ trắng, viền dưới đỏ */
+.mini-cart h3 {
+    margin: -14px -14px 10px;
+    padding: 10px 14px;
+    border-bottom: 3px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+    font-size: 17px;
+}
+
+/* bảng dài quá thì cuộn bên trong khung */
+.mini-cart-content {
+    max-height: 340px;
+    overflow: auto;
+}
+
+.cart-empty {
+    margin: 16px 0;
+    text-align: center;
+    color: var(--gray);
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.cart-table th,
+.cart-table td {
+    padding: 6px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.cart-table th {
+    background: var(--gray-light);
+}
+
+.cart-table img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.cart-title {
+    max-width: 160px;
+}
+
+.cart-quantity {
+    white-space: nowrap;
+}
+
+.cart-quantity span {
+    display: inline-block;
+    min-width: 24px;
+    text-align: center;
+}
+
+.qty-btn,
+.remove-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--black);
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--black);
+    cursor: pointer;
+}
+
+.qty-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.remove-btn {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.remove-btn:hover {
+    background: var(--red);
+    color: var(--white);
+}
+
+.mini-cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* dòng Tổng tiền chữ đỏ */
+.mini-cart-footer p {
+    margin: 0;
+    color: var(--red);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#cartTotal {
+    color: var(--red);
+}
+
+/* ===== Câu 2: nav ===== */
+nav {
+    background: var(--black-soft);
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 0;
+    padding: 0 24px;
+    list-style: none;
+}
+
+nav a {
+    display: block;
+    padding: 12px 14px;
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--yellow);
+}
+
+/* ===== Câu 3: bố cục tổng bằng Flexbox =====
+   Mặc định (Mobile < 600px): xếp dọc, aside thành 1 khối ngay dưới header/nav, section ở dưới */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+/* section chiếm phần còn lại; min-width: 0 để lưới không làm tràn ngang */
+.container > section {
+    flex: 1;
+    min-width: 0;
+}
+
+/* aside: viền trên đỏ */
+aside {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--red);
+    border-radius: 8px;
+    background: var(--white);
+}
+
+/* tiêu đề form tìm kiếm có gạch chân vàng */
+aside h2 {
+    display: inline-block;
+    margin-top: 0;
+    padding-bottom: 4px;
+    border-bottom: 3px solid var(--yellow);
+    font-size: 18px;
+}
+
+/* ===== Câu 2: form ===== */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.form-group input[type="search"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input[type="range"] {
+    width: 100%;
+}
+
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ô nhập sai sau khi người dùng đã gõ thì viền đỏ */
+.form-group input:user-invalid {
+    border-color: var(--red);
+}
+
+.error {
+    display: block;
+    color: var(--red);
+    font-size: 13px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* ===== Nút =====
+   Nút phụ: viền đen nền trắng, rê chuột viền đỏ
+   Nút chính: nền đỏ chữ trắng, rê chuột đỏ đậm */
+.btn {
+    padding: 7px 12px;
+    border: 1px solid var(--black);
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.btn-primary {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    border-color: var(--red-dark);
+    background: var(--red-dark);
+    color: var(--white);
+}
+
+/* ===== Câu 3: danh sách sản phẩm dạng CSS Grid =====
+   Mặc định 1 cột (Mobile), @media bên dưới đổi thành 2 cột (Tablet) và 4 cột (Desktop) */
+.product-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-content: start;
+}
+
+.message {
+    grid-column: 1 / -1;
+    padding: 20px;
+    text-align: center;
+    color: var(--gray);
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* khung ảnh position: relative để gắn sao trung bình (Câu 5) */
+.product-image {
+    position: relative;
+    height: 200px;
+    padding: 12px;
+    background: var(--white);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.product-title {
+    margin: 0 0 6px;
+    font-size: 15px;
+    /* tên dài thì chỉ hiện 2 dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* giá sản phẩm màu đỏ */
+.product-price {
+    margin: 0 0 4px;
+    color: var(--red);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.product-category {
+    margin: 0 0 8px;
+    color: var(--gray);
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.variant-label {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.variant-select {
+    width: 100%;
+    margin-top: 4px;
+    padding: 5px;
+}
+
+.product-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.product-actions .btn-primary {
+    width: 100%;
+}
+
+.product-actions .btn:not(.btn-primary) {
+    flex: 1;
+    padding: 7px 4px;
+    font-size: 13px;
+}
+
+/* ===== Footer: nền đen chữ trắng, dòng tên sinh viên màu vàng ===== */
+footer {
+    padding: 16px;
+    border-top: 4px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: var(--yellow);
+    font-weight: bold;
+}
+
+/* nút bị khóa (vd variant hết hàng) */
+.btn:disabled,
+.btn-primary:disabled {
+    border-color: #BBBBBB;
+    background: #CCCCCC;
+    color: #444444;
+    cursor: not-allowed;
+}
+
+/* ===== Câu 4: popup Xem nhanh (dùng chung cho các popup) ===== */
+.quick-view {
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* lớp nền mờ phía sau dialog khi mở bằng showModal() */
+.quick-view::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* thanh tiêu đề popup: nền đen chữ trắng, viền dưới đỏ, nút Đóng bên phải */
+.quick-view-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: -20px -20px 16px;
+    padding: 10px 20px;
+    border-bottom: 3px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+}
+
+.dialog-title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* nút Đóng trên nền đen */
+.quick-view-close .btn {
+    border-color: var(--white);
+    background: transparent;
+    color: var(--white);
+}
+
+.quick-view-close .btn:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.quick-view-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quick-view-body img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+.quick-view-body h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.variant-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.variant-table th,
+.variant-table td {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.variant-table th {
+    background: var(--gray-light);
+}
+
+/* dòng variant đang chọn */
+.variant-table tr.selected {
+    background: var(--yellow-light);
+    font-weight: bold;
+}
+
+/* ===== Câu 5: sao trung bình đè lên góc ảnh: nền đen chữ vàng =====
+   khung .product-image đã có position: relative (Câu 2) nên span absolute bám theo khung ảnh */
+.avg-rating {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: var(--black);
+    color: var(--yellow);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ===== Câu 5: popup Rating Detail ===== */
+.rating-summary {
+    font-size: 16px;
+}
+
+/* sao vàng có viền đen mảnh để đọc rõ trên nền trắng */
+.stars {
+    color: var(--yellow);
+    letter-spacing: 2px;
+    text-shadow: 0 0 1px var(--black), 0 0 1px var(--black);
+}
+
+.review-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.review-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.review-list p {
+    margin: 4px 0 0;
+}
+
+.review-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-date {
+    color: var(--gray);
+    font-size: 13px;
+}
+
+/* phần tử có thuộc tính hidden luôn bị ẩn */
+[hidden] {
+    display: none !important;
+}
+
+/* ===== Câu 7: popup Thanh toán ===== */
+.checkout-dialog {
+    max-width: 600px;
+}
+
+.checkout-dialog h2 {
+    margin-top: 0;
+}
+
+.checkout-dialog input[type="text"],
+.checkout-dialog input[type="tel"],
+.checkout-dialog input[type="email"],
+.checkout-dialog input[type="password"],
+.checkout-dialog select,
+.checkout-dialog textarea {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+/* đúng: viền xanh lá; sai: viền đỏ */
+.checkout-dialog input.valid,
+.checkout-dialog select.valid {
+    border-color: var(--success);
+}
+
+.checkout-dialog input.invalid,
+.checkout-dialog select.invalid {
+    border-color: var(--red);
+}
+
+.login-box {
+    margin-bottom: 14px;
+    padding: 12px;
+    border: 1px dashed var(--black);
+    border-left: 4px solid var(--yellow);
+    border-radius: 6px;
+    background: var(--yellow-light);
+}
+
+.login-title {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #444444;
+}
+
+.login-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.login-row input {
+    flex: 1 1 140px;
+}
+
+.order-summary {
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--gray-light);
+    font-size: 13px;
+}
+
+.order-summary ul {
+    margin: 0 0 6px;
+    padding-left: 18px;
+}
+
+/* dòng Tổng tiền chữ đỏ */
+.order-summary p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--red);
+}
+
+#confirmButton {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.checkout-success {
+    padding: 20px;
+    text-align: center;
+}
+
+.checkout-success h2 {
+    color: var(--success);
+}
+
+/* ===== Câu 4: thông báo nhỏ (toast) ===== */
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1100; /* cao hơn mini-cart để thông báo không bị che */
+    padding: 12px 16px;
+    border-left: 5px solid var(--yellow);
+    border-radius: 6px;
+    background: var(--black);
+    color: var(--white);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===== Câu 3: Skeleton Loading (giữ màu xám nhạt để thấy hiệu ứng) ===== */
+.skeleton-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    overflow: hidden;
+}
+
+.skeleton-body {
+    padding: 12px;
+}
+
+/* các khối xám giả ảnh / giả chữ, có hiệu ứng shimmer chạy ngang */
+.skeleton-image,
+.skeleton-line {
+    background: linear-gradient(90deg, #E3E3E3 25%, #F5F5F5 50%, #E3E3E3 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s linear infinite;
+}
+
+.skeleton-image {
+    height: 200px;
+}
+
+.skeleton-line {
+    height: 14px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.skeleton-line.medium {
+    width: 70%;
+}
+
+.skeleton-line.short {
+    width: 40%;
+}
+
+/* dải sáng trong gradient di chuyển từ phải sang trái */
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* ===== Câu 3: responsive ===== */
+
+/* Tablet (600px - 1023px): aside bên trái, section bên phải; lưới 2 cột */
+@media (min-width: 600px) {
+    .container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    aside {
+        flex: 0 0 220px;
+    }
+
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Câu 4: popup Xem nhanh chia 2 cột: ảnh trái, thông tin phải */
+    .quick-view-body {
+        flex-direction: row;
+    }
+
+    .quick-view-body img {
+        flex: 0 0 40%;
+        width: 40%;
+    }
+}
+
+/* Desktop (>= 1024px): aside rộng hơn; lưới 4 cột */
+@media (min-width: 1024px) {
+    aside {
+        flex: 0 0 260px;
+    }
+
+    .product-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Mobile (< 600px): thu nhỏ khoảng cách header và menu */
+@media (max-width: 599px) {
+    header {
+        padding: 12px 16px;
+    }
+
+    nav ul {
+        padding: 0 8px;
+    }
+}

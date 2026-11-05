@@ -1,0 +1,535 @@
+/* admin.css - css trang admin (Câu 8) */
+
+/* ===== Bảng màu thương hiệu MU Shop: đỏ - vàng - đen ===== */
+:root {
+    --red: #C8102E;
+    --red-dark: #9E0B23;
+    --yellow: #FFD200;
+    --black: #111111;
+    --black-soft: #1E1E1E;
+    --white: #FFFFFF;
+    --gray-light: #F5F5F5;
+    /* màu phụ */
+    --gray: #666666;
+    --border: #DDDDDD;
+    --yellow-light: #FFF6CC;
+    /* màu theo trạng thái đơn (giữ khác nhau để dễ phân biệt) */
+    --pending: #7A5A00;
+    --pending-bg: #FFF1B8;
+    --shipping: #0B5394;
+    --shipping-bg: #E3EEFA;
+    --completed: #1B5E20;
+    --completed-bg: #E6F4EA;
+    --cancelled: #9E0B23;
+    --cancelled-bg: #FDE7EA;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: var(--black);
+    background: var(--gray-light);
+    accent-color: var(--red);
+}
+
+:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* logo chỉ là chữ: "MU" đỏ, "Shop" vàng, "Admin" trắng */
+.logo-mu {
+    color: var(--red);
+}
+
+.logo-shop {
+    color: var(--yellow);
+}
+
+/* ===== Nút =====
+   Nút phụ: viền đen nền trắng, rê chuột viền đỏ; nút chính: nền đỏ chữ trắng, rê chuột đỏ đậm */
+.btn {
+    padding: 7px 14px;
+    border: 1px solid var(--black);
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.btn-primary {
+    border-color: var(--red);
+    background: var(--red);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    border-color: var(--red-dark);
+    background: var(--red-dark);
+    color: var(--white);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.error {
+    min-height: 18px;
+    margin: 8px 0 0;
+    color: var(--red);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* ===== Câu 8: trang đăng nhập ===== */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 380px;
+    margin: auto;
+    padding: 28px 24px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+/* tiêu đề là 1 dải đen viền đỏ ở đầu khung (để chữ vàng đọc rõ) */
+.login-box h1 {
+    margin: -28px -24px 0;
+    padding: 18px 12px;
+    border-bottom: 4px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+}
+
+.login-subtitle {
+    margin: 14px 0 20px;
+    color: var(--gray);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.back-link {
+    display: block;
+    margin-top: 12px;
+    color: var(--red);
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--red-dark);
+    text-decoration: underline;
+}
+
+/* ===== Câu 8: header + nav dashboard ===== */
+.admin-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-bottom: 4px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+}
+
+.admin-header .logo {
+    color: var(--white);
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-user strong {
+    color: var(--yellow);
+}
+
+/* nút Đăng xuất trên nền đen */
+.admin-header .btn {
+    border-color: var(--white);
+    background: transparent;
+    color: var(--white);
+}
+
+.admin-header .btn:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.admin-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 16px;
+    background: var(--black-soft);
+}
+
+.admin-nav a {
+    padding: 12px 14px;
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.admin-nav a:hover {
+    color: var(--yellow);
+}
+
+.admin-main {
+    max-width: 1300px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+.admin-main h2 {
+    margin: 0 0 12px;
+    font-size: 20px;
+}
+
+/* ===== Câu 8: thẻ số liệu (viền trái đỏ) ===== */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 16px;
+    border-left: 5px solid var(--red);
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-label {
+    margin: 0;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.stat-value {
+    margin: 6px 0 0;
+    color: var(--black);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ===== Câu 8: khung + bảng ===== */
+.panel {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-top: 4px solid var(--black);
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.panel h2 {
+    display: inline-block;
+    padding-bottom: 4px;
+    border-bottom: 3px solid var(--yellow);
+}
+
+.panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.panel-head select {
+    margin-left: 6px;
+    padding: 5px;
+}
+
+.hint {
+    margin: 6px 0 10px;
+    color: var(--gray);
+    font-size: 13px;
+}
+
+/* bảng rộng thì cuộn ngang bên trong khung, không làm vỡ trang */
+.table-wrap {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.admin-table th {
+    background: var(--gray-light);
+    white-space: nowrap;
+}
+
+/* dòng tổng tiền hóa đơn chữ đỏ */
+.admin-table tfoot td {
+    color: var(--red);
+    font-weight: bold;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.order-row {
+    cursor: pointer;
+}
+
+.order-row:hover {
+    background: var(--yellow-light);
+}
+
+.empty {
+    padding: 20px;
+    color: var(--gray);
+    text-align: center;
+}
+
+/* ô chọn / nhãn trạng thái tô màu theo trạng thái */
+.status-select {
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.badge {
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.status-Pending   { color: var(--pending);   background: var(--pending-bg); }
+.status-Shipping  { color: var(--shipping);  background: var(--shipping-bg); }
+.status-Completed { color: var(--completed); background: var(--completed-bg); }
+.status-Cancelled { color: var(--cancelled); background: var(--cancelled-bg); }
+
+/* 2 khung cạnh nhau trên màn hình rộng */
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.two-columns .panel {
+    margin-bottom: 0;
+}
+
+/* ===== Câu 8: biểu đồ cột bằng div + CSS =====
+   khung flex, các cột canh đáy (align-items: flex-end), chiều cao cột đặt bằng % trong JS */
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 12px;
+    height: 260px;
+    padding: 10px 8px 0;
+    border-bottom: 2px solid var(--black);
+}
+
+.bar-item {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    max-width: 90px;
+}
+
+/* cột thường màu đỏ */
+.bar {
+    width: 100%;
+    min-height: 2px;
+    border-radius: 4px 4px 0 0;
+    background: var(--red);
+    transition: height 0.5s;
+}
+
+/* cột cao nhất màu vàng viền đen */
+.bar.bar-max {
+    border: 2px solid var(--black);
+    border-bottom: none;
+    background: var(--yellow);
+}
+
+.bar-value {
+    margin-bottom: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* nhãn danh mục nằm dưới trục */
+.bar-label {
+    height: 0;
+    margin-top: 6px;
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+/* chừa chỗ cho nhãn dưới trục */
+#categoryChart {
+    margin-bottom: 30px;
+}
+
+/* ===== Câu 8: popup chi tiết hóa đơn ===== */
+.order-dialog {
+    width: 92%;
+    max-width: 760px;
+    max-height: 90vh;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+}
+
+.order-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.order-dialog h2 {
+    margin-top: 0;
+}
+
+/* thanh tiêu đề popup: nền đen chữ trắng, viền dưới đỏ, nút Đóng bên phải */
+.dialog-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: -20px -20px 16px;
+    padding: 10px 20px;
+    border-bottom: 3px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+}
+
+.dialog-title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dialog-close .btn {
+    border-color: var(--white);
+    background: transparent;
+    color: var(--white);
+}
+
+.dialog-close .btn:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.invoice-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px 20px;
+    margin-bottom: 14px;
+}
+
+.invoice-info p {
+    margin: 4px 0;
+}
+
+/* ===== Footer: nền đen, dòng tên sinh viên màu vàng ===== */
+footer {
+    padding: 16px;
+    border-top: 4px solid var(--red);
+    background: var(--black);
+    color: var(--white);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: var(--yellow);
+    font-weight: bold;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 900px) {
+    .two-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 600px) {
+    .invoice-info {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 599px) {
+    .admin-header {
+        padding: 12px 16px;
+    }
+
+    .bar-label {
+        white-space: normal;
+        font-size: 11px;
+    }
+}

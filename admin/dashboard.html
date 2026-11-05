@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - MU Shop BW08</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <!-- Câu 8: header có tên nhân viên + nút Đăng xuất -->
+    <header class="admin-header">
+        <a href="dashboard.html" class="logo"><span class="logo-mu">MU</span> <span class="logo-shop">Shop</span> Admin</a>
+        <div class="admin-user">
+            <span>Xin chào, <strong id="employeeName"></strong> (<span id="employeeRole"></span>)</span>
+            <button type="button" id="logoutButton" class="btn">Đăng xuất</button>
+        </div>
+    </header>
+
+    <nav class="admin-nav">
+        <a href="#stats">Thống kê</a>
+        <a href="#orders">Đơn hàng</a>
+        <a href="../index.html">Trang bán hàng</a>
+    </nav>
+
+    <main class="admin-main">
+        <!-- Câu 8: các thẻ số liệu -->
+        <section id="stats">
+            <h2>Thống kê</h2>
+            <div class="stat-cards">
+                <div class="stat-card">
+                    <p class="stat-label">Tổng số đơn</p>
+                    <p class="stat-value" id="statOrders">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Doanh thu (không tính đơn hủy)</p>
+                    <p class="stat-value" id="statRevenue">$0.00</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Số sản phẩm đã bán</p>
+                    <p class="stat-value" id="statSold">0</p>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-label">Số khách hàng đã mua</p>
+                    <p class="stat-value" id="statCustomers">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Câu 8: quản lý đơn hàng -->
+        <section id="orders" class="panel">
+            <div class="panel-head">
+                <h2>Quản lý đơn hàng</h2>
+                <label>Lọc theo trạng thái:
+                    <select id="statusFilter">
+                        <option value="all">Tất cả</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Shipping">Shipping</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </label>
+            </div>
+            <p class="hint">Bấm vào một dòng để xem chi tiết hóa đơn. Đổi trạng thái bằng ô chọn ở cột cuối.</p>
+            <div class="table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày</th>
+                            <th>Khách hàng</th>
+                            <th>Nhân viên</th>
+                            <th>Số món</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody">
+                        <tr><td colspan="7" class="empty">Đang tải dữ liệu...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="two-columns">
+            <!-- Câu 8: bảng sản phẩm đã bán -->
+            <section class="panel">
+                <h2>Sản phẩm đã bán</h2>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng bán</th>
+                                <th>Doanh thu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="soldBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Câu 8: biểu đồ cột vẽ bằng div + CSS -->
+            <section class="panel">
+                <h2>Doanh thu theo danh mục</h2>
+                <div id="categoryChart" class="bar-chart"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Câu 8: popup chi tiết hóa đơn -->
+    <dialog id="orderDetail" class="order-dialog">
+        <form method="dialog" class="dialog-close">
+            <span class="dialog-title">Chi tiết hóa đơn</span>
+            <button type="submit" class="btn">✕ Đóng</button>
+        </form>
+        <div id="orderDetailContent"></div>
+    </dialog>
+
+    <footer>
+        <p>Lê Thanh Bảo Duy - K244161775</p>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

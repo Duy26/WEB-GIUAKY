@@ -1,0 +1,23 @@
+[
+    {
+        "id": "E01",
+        "username": "admin",
+        "password": "admin123",
+        "fullname": "Lê Thanh Bảo Duy",
+        "role": "admin"
+    },
+    {
+        "id": "E02",
+        "username": "staff01",
+        "password": "staff123",
+        "fullname": "Huỳnh Thị Mai",
+        "role": "staff"
+    },
+    {
+        "id": "E03",
+        "username": "staff02",
+        "password": "staff123",
+        "fullname": "Đặng Quốc Khánh",
+        "role": "staff"
+    }
+]

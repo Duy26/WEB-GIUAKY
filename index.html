@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MU Shop - BW08</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!-- Câu 2: header gồm logo + nút Đăng nhập + nút giỏ hàng có số lượng -->
+    <header>
+        <a href="index.html" class="logo"><span class="logo-mu">MU</span> <span class="logo-shop">Shop</span></a>
+
+        <!-- nhóm nút bên phải header: Đăng nhập (trang quản trị) + Giỏ hàng nằm ngang hàng -->
+        <div class="header-actions">
+            <a href="admin/login.html" class="login-link" title="Đăng nhập trang quản trị dành cho nhân viên">Đăng nhập</a>
+
+            <!-- Câu 6: khối bọc position: relative để mini-cart hiện ngay dưới nút giỏ -->
+            <div class="cart-wrapper">
+                <button type="button" id="cartButton" class="cart-button" aria-expanded="false" aria-controls="miniCart">
+                    Giỏ hàng <span id="cartCount" class="cart-count">0</span>
+                </button>
+
+                <!-- Câu 6: mini-cart, nội dung bảng được render bằng cart.render() -->
+                <div id="miniCart" class="mini-cart">
+                    <h3>Giỏ hàng của bạn</h3>
+                    <div id="miniCartContent" class="mini-cart-content"></div>
+                    <div class="mini-cart-footer">
+                        <p>Tổng tiền: <strong id="cartTotal">$0.00</strong></p>
+                        <button type="button" class="btn btn-primary" id="checkoutButton" data-action="checkout">Thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Câu 2: menu điều hướng -->
+    <nav>
+        <ul>
+            <li><a href="#productList">Sản phẩm</a></li>
+            <li><a href="#cart">Giỏ hàng</a></li>
+            <li><a href="#checkout">Thanh toán</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Câu 2: form tìm kiếm nâng cao -->
+        <aside>
+            <h2>Tìm kiếm nâng cao</h2>
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchName">Tên sản phẩm</label>
+                    <input type="search" id="searchName" name="searchName" maxlength="50"
+                           pattern="[A-Za-zÀ-ỹ0-9 ]*" placeholder="VD: jacket"
+                           title="Chỉ nhập chữ, số và khoảng trắng, tối đa 50 ký tự">
+                    <small class="error" id="searchNameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="priceFrom">Khoảng giá ($)</label>
+                    <div class="price-range">
+                        <input type="number" id="priceFrom" name="priceFrom" min="0" max="1000" step="0.01"
+                               value="0" required title="Giá từ: số từ 0 đến 1000, tối đa 2 chữ số thập phân">
+                        <span>đến</span>
+                        <input type="number" id="priceTo" name="priceTo" min="0" max="1000" step="0.01"
+                               value="1000" required title="Giá đến: số từ 0 đến 1000, tối đa 2 chữ số thập phân">
+                    </div>
+                    <small class="error" id="priceFromError"></small>
+                    <small class="error" id="priceToError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="searchColor">Màu sắc</label>
+                    <select id="searchColor" name="searchColor" title="Chọn màu sản phẩm">
+                        <option value="all">Tất cả màu</option>
+                        <!-- các màu được thêm bằng JS từ products.xml -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="minRating">Rating tối thiểu: <output id="ratingValue">1</output> sao</label>
+                    <input type="range" id="minRating" name="minRating" min="1" max="5" step="1" value="1"
+                           title="Kéo để chọn số sao tối thiểu (1-5)">
+                </div>
+
+                <div class="form-group">
+                    <label for="searchCategory">Danh mục</label>
+                    <select id="searchCategory" name="searchCategory" required title="Chọn danh mục sản phẩm">
+                        <option value="all">Tất cả</option>
+                        <!-- các danh mục được thêm bằng JS từ products.xml -->
+                    </select>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    <button type="reset" class="btn">Xóa lọc</button>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Câu 2: danh sách sản phẩm, mỗi sản phẩm là 1 article.product-card -->
+        <section id="productList" class="product-list">
+            <p class="message">Đang tải sản phẩm...</p>
+        </section>
+    </main>
+
+    <!-- Câu 4: popup Xem nhanh (thẻ dialog của HTML5); nội dung được điền bằng JS -->
+    <dialog id="quickView" class="quick-view">
+        <!-- form method="dialog": bấm nút submit sẽ tự đóng dialog, không cần JS -->
+        <form method="dialog" class="quick-view-close">
+            <span class="dialog-title">Xem nhanh sản phẩm</span>
+            <button type="submit" class="btn">✕ Đóng</button>
+        </form>
+        <div id="quickViewContent"></div>
+    </dialog>
+
+    <!-- Câu 5: popup Rating Detail; nội dung được điền bằng JS -->
+    <dialog id="ratingDetail" class="quick-view">
+        <form method="dialog" class="quick-view-close">
+            <span class="dialog-title">Đánh giá sản phẩm</span>
+            <button type="submit" class="btn">✕ Đóng</button>
+        </form>
+        <div id="ratingDetailContent"></div>
+    </dialog>
+
+    <!-- Câu 7: popup Thanh toán (id="checkout" để link #checkout trên menu trỏ tới) -->
+    <dialog id="checkout" class="quick-view checkout-dialog">
+        <form method="dialog" class="quick-view-close">
+            <span class="dialog-title">Thanh toán</span>
+            <button type="submit" class="btn">✕ Đóng</button>
+        </form>
+
+        <div id="checkoutArea">
+
+            <!-- Câu 7: khung đăng nhập khách hàng (không bắt buộc) -->
+            <div class="login-box">
+                <form id="customerLoginForm">
+                    <p class="login-title">Đã có tài khoản? Đăng nhập để tự điền thông tin (không bắt buộc)</p>
+                    <div class="login-row">
+                        <input type="text" id="loginUsername" placeholder="Tên đăng nhập" required autocomplete="username">
+                        <input type="password" id="loginPassword" placeholder="Mật khẩu" required autocomplete="current-password">
+                        <button type="submit" class="btn">Đăng nhập</button>
+                    </div>
+                    <small class="error" id="loginError"></small>
+                </form>
+                <div id="customerInfo" hidden>
+                    Xin chào <strong id="customerName"></strong>
+                    <button type="button" id="logoutButton" class="btn">Đăng xuất</button>
+                </div>
+            </div>
+
+            <!-- tóm tắt đơn hàng, render bằng JS -->
+            <div id="orderSummary" class="order-summary"></div>
+
+            <!-- Câu 7: form giao hàng; novalidate vì tự kiểm tra bằng Regex trong checkout.js -->
+            <form id="checkoutForm" novalidate>
+                <div class="form-group">
+                    <label for="coName">Họ tên *</label>
+                    <input type="text" id="coName" maxlength="50" autocomplete="name" placeholder="VD: Nguyễn Văn An">
+                    <small class="error" id="coNameError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="coPhone">Số điện thoại *</label>
+                    <input type="tel" id="coPhone" maxlength="12" autocomplete="tel" placeholder="VD: 0912345678 hoặc +84912345678">
+                    <small class="error" id="coPhoneError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="coEmail">Email *</label>
+                    <input type="email" id="coEmail" maxlength="100" autocomplete="email" placeholder="VD: ten@gmail.com">
+                    <small class="error" id="coEmailError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="coAddress">Địa chỉ *</label>
+                    <input type="text" id="coAddress" maxlength="200" autocomplete="street-address" placeholder="Số nhà, đường, phường, quận, tỉnh/thành">
+                    <small class="error" id="coAddressError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="coPayment">Phương thức thanh toán *</label>
+                    <select id="coPayment" required>
+                        <option value="">-- Chọn phương thức thanh toán --</option>
+                        <option value="COD">COD - Thanh toán khi nhận hàng</option>
+                        <option value="Bank transfer">Bank transfer - Chuyển khoản ngân hàng</option>
+                        <option value="E-wallet">E-wallet - Ví điện tử</option>
+                    </select>
+                    <small class="error" id="coPaymentError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="coNote">Ghi chú</label>
+                    <textarea id="coNote" maxlength="200" rows="2" placeholder="Không bắt buộc"></textarea>
+                </div>
+                <button type="submit" id="confirmButton" class="btn btn-primary" disabled>Xác nhận thanh toán</button>
+            </form>
+        </div>
+
+        <!-- Câu 7: thông báo thanh toán thành công -->
+        <div id="checkoutSuccess" class="checkout-success" hidden></div>
+    </dialog>
+
+    <!-- Câu 4: thông báo nhỏ góc màn hình -->
+    <div id="toast" class="toast" role="status"></div>
+
+    <footer>
+        <p>Lê Thanh Bảo Duy - K244161775</p>
+    </footer>
+
+    <!-- Nạp js theo thứ tự: data -> products -> reviews -> cart -> events -> checkout -->
+    <script src="js/data.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

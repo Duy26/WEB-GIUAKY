@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reviews>
+  <review id="R001" product_id="1" customer_id="C01" rating="5" date="2026-10-03">Balo rất chắc chắn, đựng vừa laptop 15 inch.</review>
+  <review id="R002" product_id="1" customer_id="C02" rating="4" date="2026-10-04">Mẫu đẹp, giao hàng nhanh.</review>
+  <review id="R003" product_id="1" customer_id="C03" rating="3" date="2026-10-08">Balo ổn nhưng quai đeo hơi cứng.</review>
+  <review id="R004" product_id="2" customer_id="C01" rating="4" date="2026-10-06">Áo vừa người, vải mềm.</review>
+  <review id="R005" product_id="2" customer_id="C04" rating="5" date="2026-10-14">Mặc rất thoải mái, sẽ mua thêm màu khác.</review>
+  <review id="R006" product_id="3" customer_id="C02" rating="5" date="2026-10-07">Áo khoác ấm, đường may đẹp.</review>
+  <review id="R007" product_id="3" customer_id="C03" rating="4" date="2026-10-10">Chất liệu tốt so với giá tiền.</review>
+  <review id="R008" product_id="3" customer_id="C04" rating="5" date="2026-10-15">Rất đáng tiền, đúng như mô tả.</review>
+  <review id="R009" product_id="3" customer_id="C05" rating="4" date="2026-10-20">Màu đẹp, size chuẩn.</review>
+  <review id="R010" product_id="4" customer_id="C05" rating="2" date="2026-10-11">Vải hơi mỏng, màu không giống hình.</review>
+  <review id="R011" product_id="5" customer_id="C02" rating="5" date="2026-10-09">Vòng tay rất sang trọng, đóng gói cẩn thận.</review>
+  <review id="R012" product_id="5" customer_id="C03" rating="4" date="2026-10-22">Đẹp nhưng giá hơi cao.</review>
+  <review id="R013" product_id="6" customer_id="C04" rating="4" date="2026-10-16">Nhẫn nhỏ xinh, đeo vừa tay.</review>
+  <review id="R014" product_id="7" customer_id="C05" rating="3" date="2026-10-27">Nhẫn đẹp nhưng xi mạ hơi mờ.</review>
+  <review id="R015" product_id="7" customer_id="C01" rating="3" date="2026-10-13">Tạm ổn với mức giá này.</review>
+  <review id="R016" product_id="8" customer_id="C02" rating="2" date="2026-10-17">Bông tai nhỏ hơn mình nghĩ.</review>
+  <review id="R017" product_id="9" customer_id="C03" rating="4" date="2026-10-14">Ổ cứng chạy ổn định, chép dữ liệu nhanh.</review>
+  <review id="R018" product_id="9" customer_id="C04" rating="3" date="2026-10-19">Dùng được, vỏ hơi dễ trầy.</review>
+  <review id="R019" product_id="10" customer_id="C05" rating="3" date="2026-10-21">SSD tốc độ được, cài đặt dễ.</review>
+  <review id="R020" product_id="11" customer_id="C01" rating="5" date="2026-10-18">Máy khởi động nhanh hẳn sau khi lắp SSD.</review>
+  <review id="R021" product_id="11" customer_id="C03" rating="5" date="2026-10-15">Rất hài lòng, giá tốt.</review>
+  <review id="R022" product_id="11" customer_id="C05" rating="4" date="2026-10-24">Tốc độ tốt, giao hàng đúng hẹn.</review>
+  <review id="R023" product_id="12" customer_id="C02" rating="5" date="2026-10-23">Dùng cho PS4 rất mượt.</review>
+  <review id="R024" product_id="13" customer_id="C04" rating="3" date="2026-10-25">Màn hình rõ nhưng chân đế hơi lung lay.</review>
+  <review id="R025" product_id="14" customer_id="C01" rating="2" date="2026-10-26">Màn hình to nhưng giá quá cao.</review>
+  <review id="R026" product_id="14" customer_id="C05" rating="3" date="2026-10-29">Chơi game đã nhưng tốn chỗ trên bàn.</review>
+  <review id="R027" product_id="15" customer_id="C02" rating="4" date="2026-10-28">Áo khoác ấm, nhiều túi tiện lợi.</review>
+  <review id="R028" product_id="15" customer_id="C03" rating="3" date="2026-10-30">Áo hơi nặng nhưng giữ ấm tốt.</review>
+  <review id="R029" product_id="15" customer_id="C05" rating="2" date="2026-11-02">Size hơi rộng so với bảng size.</review>
+  <review id="R030" product_id="16" customer_id="C01" rating="3" date="2026-10-29">Áo da đẹp nhưng mùi da hơi nồng.</review>
+  <review id="R031" product_id="17" customer_id="C04" rating="4" date="2026-10-31">Áo gió nhẹ, chống mưa tốt.</review>
+  <review id="R032" product_id="18" customer_id="C01" rating="5" date="2026-11-01">Áo mặc mát, giá rẻ.</review>
+  <review id="R033" product_id="18" customer_id="C02" rating="4" date="2026-11-02">Form áo đẹp, vải co giãn.</review>
+  <review id="R034" product_id="19" customer_id="C03" rating="5" date="2026-11-03">Áo thể thao thấm hút mồ hôi tốt.</review>
+  <review id="R035" product_id="20" customer_id="C04" rating="4" date="2026-11-04">Áo cotton mềm, mặc đi chơi rất hợp.</review>
+</reviews>

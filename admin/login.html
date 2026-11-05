@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Admin - MU Shop BW08</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="login-page">
+
+    <!-- Câu 8: form đăng nhập nhân viên -->
+    <main class="login-box">
+        <h1><span class="logo-mu">MU</span> <span class="logo-shop">Shop</span> Admin</h1>
+        <p class="login-subtitle">Đăng nhập dành cho nhân viên</p>
+
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label for="adminUsername">Tên đăng nhập</label>
+                <input type="text" id="adminUsername" required maxlength="30" autocomplete="username"
+                       placeholder="VD: admin" title="Nhập tên đăng nhập">
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">Mật khẩu</label>
+                <input type="password" id="adminPassword" required maxlength="30" autocomplete="current-password"
+                       placeholder="Mật khẩu" title="Nhập mật khẩu">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+            <!-- lỗi đăng nhập hiện ngay dưới form -->
+            <p class="error" id="adminLoginError"></p>
+        </form>
+
+        <a href="../index.html" class="back-link">← Về trang bán hàng</a>
+    </main>
+
+    <footer>
+        <p>Lê Thanh Bảo Duy - K244161775</p>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
